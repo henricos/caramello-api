@@ -25,23 +25,38 @@ Para uma descrição detalhada da visão e de todas as funcionalidades planejada
 
 ## Funcionalidades
 
-_Em construção..._
+O Caramello visa oferecer um conjunto diversificado de ferramentas para a gestão familiar. Algumas das principais funcionalidades planejadas incluem:
+
+-   **Agenda Familiar**: Compromissos individuais e compartilhados.
+-   **Gestão de Compras**: Lista de compras colaborativa em tempo real.
+-   **Controle de Despensa**: Inventário de itens domésticos.
+-   **Entretenimento**: Listas de filmes, séries e livros.
+-   **Finanças Pessoais**: Controle de gastos e orçamento familiar.
+-   **Saúde da Família**: Histórico médico e controle de medicação.
+-   **Tarefas e Lembretes**: Organização de responsabilidades diárias.
+
+Para uma descrição detalhada da visão e de todas as funcionalidades planejadas, consulte o documento [Visão do Projeto](./docs/project_vision.md).
 
 ## Instalação
 
-Para configurar o ambiente de desenvolvimento e instalar as dependências do projeto, siga os passos abaixo:
+Para configurar o ambiente de desenvolvimento e instalar as dependências do projeto, você precisará do `uv`.
 
-1.  **Crie o ambiente virtual:**
+1.  **Instale o `uv` (se ainda não tiver):**
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+
+2.  **Crie o ambiente virtual:**
     ```bash
     uv venv
     ```
 
-2.  **Instale as dependências do projeto:**
+3.  **Instale as dependências do projeto:**
     ```bash
     uv pip install -e .
     ```
 
-3.  **Instale as dependências de desenvolvimento (para geração de código):**
+4.  **Instale as dependências de desenvolvimento (para geração de código):**
     ```bash
     uv pip install ".[dev]"
     ```
@@ -68,11 +83,31 @@ Os scripts de geração estão localizados na pasta `scripts/`. Certifique-se de
 
 ## Estrutura do Projeto
 
-_Em construção..._
+### Pastas principais:
+
+-   **`alembic/`**: Scripts de migração de banco de dados (Alembic).
+-   **`docs/`**: Documentação detalhada do projeto.
+-   **`dsl/`**: Definições de objetos de domínio em YAML (DSL). Gera código e OpenAPI.
+-   **`src/caramello/`**: Pacote principal da aplicação.
+    -   **`api/`**: Routers FastAPI (endpoints).
+    -   **`core/`**: Configurações globais, variáveis de ambiente, utilitários.
+    -   **`database/`**: Conexão com o banco de dados e configuração de sessão.
+    -   **`models/`**: Modelos SQLModel (tabelas do banco de dados).
+    -   **`repositories/`**: Camada de acesso a dados (queries).
+    -   **`schemas/`**: Schemas Pydantic para validação.
+    -   **`services/`**: Camada de lógica de negócio.
+-   **`tests/`**: Testes automatizados.
 
 ## Tecnologias
 
-_Em construção..._
+O projeto é construído sobre uma stack moderna de Python:
+
+-   **Python 3.10+**
+-   **FastAPI**: Framework web moderno e de alta performance.
+-   **SQLModel**: ORM que combina SQLAlchemy e Pydantic.
+-   **Alembic**: Ferramenta de migração de banco de dados.
+-   **Pydantic**: Validação de dados e gerenciamento de configurações.
+-   **uv**: Gerenciador de pacotes e projetos Python extremamente rápido.
 
 ## Contribuição
 
