@@ -10,6 +10,7 @@ dependencies = [
     "pydantic",
     "uvicorn",
     "pyyaml",
+    "email-validator>=2.3.0",
 ]
 requires-python = ">=3.10"
 readme = "README.md"
@@ -31,3 +32,9 @@ packages = [{ include = "caramello", from = "src" }]
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.1",
+]
