@@ -51,6 +51,11 @@ Para configurar o ambiente de desenvolvimento e instalar as dependências do pro
     uv venv
     ```
 
+    **Ative o ambiente virtual:**
+    ```bash
+    source .venv/bin/activate
+    ```
+
 3.  **Instale as dependências do projeto:**
     ```bash
     uv pip install -e .
@@ -63,22 +68,16 @@ Para configurar o ambiente de desenvolvimento e instalar as dependências do pro
 
 ## Uso
 
-O projeto Caramello Backend utiliza um fluxo de trabalho "API First" com DSLs em YAML para definir entidades e gerar a especificação OpenAPI, que por sua vez é usada para gerar o código Python (modelos e esquemas).
+O projeto Caramello Backend utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades, e um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI.
 
-### Fluxos de Geração
+### Geração de Código
 
-Os scripts de geração estão localizados na pasta `scripts/`. Certifique-se de que seu ambiente virtual esteja configurado e as dependências de desenvolvimento instaladas antes de executar.
+O script de geração está localizado na pasta `scripts/`. Certifique-se de que seu ambiente virtual esteja configurado e as dependências de desenvolvimento instaladas antes de executar.
 
-1.  **Gerar Especificação OpenAPI a partir do DSL:**
-    Este script lê as definições de entidade em `dsl/entities/` (conforme listado em `dsl/manifest.yaml`) e gera o arquivo `openapi/v1/spec.yaml`.
+1.  **Gerar Modelos e API a partir do DSL:**
+    Este script lê as definições de entidade em `dsl/entities/` (conforme listado em `dsl/manifest.yaml`) e gera os modelos em `src/caramello/models/` e os roteadores em `src/caramello/api/generated/`.
     ```bash
-    uv run python scripts/generate_openapi_spec.py
-    ```
-
-2.  **Gerar Esquemas Pydantic a partir do OpenAPI:**
-    Este script utiliza o `datamodel-code-generator` para gerar os modelos Pydantic (schemas da API) a partir do `openapi/v1/spec.yaml`. Os arquivos gerados serão salvos em `src/caramello/schemas/generated/`.
-    ```bash
-    uv run python scripts/generate_pydantic_schemas.py
+    uv run python scripts/generate_code.py
     ```
 
 ## Estrutura do Projeto
