@@ -3,7 +3,7 @@
 
 name: Family
 description: "Represents a family group in the system."
-table_name: families
+table_name: family
 
 fields:
   - name: id

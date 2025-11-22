@@ -6,7 +6,7 @@ from datetime import datetime
 from caramello.database.session import get_session
 from caramello.models.family import Family
 
-router = APIRouter(prefix="/families", tags=["Family"])
+router = APIRouter(prefix="/family", tags=["Family"])
 
 @router.post("/", response_model=Family)
 def create_family(family: Family, session: Session = Depends(get_session)):

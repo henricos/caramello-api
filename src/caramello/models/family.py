@@ -9,7 +9,7 @@ from caramello.models.familymember import FamilyMember
 
 class Family(SQLModel, table=True):
     """Represents a family group in the system."""
-    __tablename__ = "families"
+    __tablename__ = "family"
 
     id: int = Field(primary_key=True, nullable=False)  # Internal primary key (numeric).
     uuid: UUID = Field(unique=True, nullable=False, default_factory=uuid4)  # Unique public identifier (UUID).

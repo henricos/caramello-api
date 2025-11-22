@@ -96,6 +96,14 @@ Após gerar os novos modelos, você deve criar e aplicar as migrações para atu
     uv run alembic upgrade head
     ```
 
+### Validação do Fluxo de Geração
+
+Para garantir que o código gerado, as migrações e os testes estejam alinhados, execute o script de validação:
+
+```bash
+uv run python scripts/validate_generation.py
+```
+
 ## Estrutura do Projeto
 
 ### Pastas principais:

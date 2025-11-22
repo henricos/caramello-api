@@ -1,8 +1,9 @@
 from sqlmodel import SQLModel, Session, create_engine
 from typing import Generator
 
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+from caramello.core.config import settings
+
+sqlite_url = settings.database_url
 
 connect_args = {"check_same_thread": False}
 engine = create_engine(sqlite_url, connect_args=connect_args)

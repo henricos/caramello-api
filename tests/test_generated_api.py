@@ -12,6 +12,6 @@ def test_routers_registered():
     # Check if routes are registered
     routes = [route.path for route in app.routes]
     assert "/users/" in routes
-    assert "/families/" in routes
+    assert "/family/" in routes
     assert "/family_members/" in routes
     assert "/family_invitations/" in routes
