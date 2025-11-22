@@ -68,7 +68,7 @@ Para configurar o ambiente de desenvolvimento e instalar as dependências do pro
 
 ## Uso
 
-O projeto Caramello Backend utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades, e um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI.
+O projeto Caramello Backend utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades. Um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI, que por sua vez servem de base para a geração automática de migrações de banco de dados (Alembic).
 
 ### Geração de Código
 
@@ -78,6 +78,22 @@ O script de geração está localizado na pasta `scripts/`. Certifique-se de que
     Este script lê as definições de entidade em `dsl/entities/` (conforme listado em `dsl/manifest.yaml`) e gera os modelos em `src/caramello/models/` e os roteadores em `src/caramello/api/generated/`.
     ```bash
     uv run python scripts/generate_code.py
+    ```
+
+### Migrações de Banco de Dados (Alembic)
+
+Após gerar os novos modelos, você deve criar e aplicar as migrações para atualizar o banco de dados.
+
+1.  **Gerar Script de Migração:**
+    O Alembic detectará as mudanças nos modelos gerados e criará um arquivo de revisão.
+    ```bash
+    uv run alembic revision --autogenerate -m "descricao_da_mudanca"
+    ```
+
+2.  **Aplicar Migrações:**
+    Atualize o banco de dados para a versão mais recente.
+    ```bash
+    uv run alembic upgrade head
     ```
 
 ## Estrutura do Projeto
