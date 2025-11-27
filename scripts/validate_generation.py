@@ -28,6 +28,7 @@ def check_file_content(file_path, search_string):
         return False
 
 import yaml
+from caramello.core.config import settings
 
 def load_yaml(file_path):
     try:

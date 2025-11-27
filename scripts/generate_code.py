@@ -2,6 +2,7 @@ import yaml
 import os
 from pathlib import Path
 from typing import Dict, Any, List
+from caramello.core.config import settings
 
 # Define base paths
 ROOT_DIR = Path(__file__).parent.parent

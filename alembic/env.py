@@ -18,7 +18,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 from sqlmodel import SQLModel
 from caramello.core.config import settings
-from caramello.models import * # Importa todas as models para autogenerate
+from caramello.models import * # Import all models for autogenerate
 
 target_metadata = SQLModel.metadata
 
@@ -40,7 +40,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = settings.database_url # Carrega a URL do DB a partir das configurações
+    url = settings.DATABASE_URL # Load DB URL from settings
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -60,7 +60,7 @@ def run_migrations_online() -> None:
 
     """
     configuration = config.get_section(config.config_ini_section)
-    configuration["sqlalchemy.url"] = settings.database_url
+    configuration["sqlalchemy.url"] = settings.DATABASE_URL
     connectable = engine_from_config(
         configuration,
         prefix="sqlalchemy.",
