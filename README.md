@@ -101,36 +101,47 @@ O projeto Caramello Backend utiliza um fluxo de trabalho onde DSLs em YAML defin
 
 ### Geração de Código
 
-O script de geração está localizado na pasta `scripts/`. Certifique-se de que seu ambiente virtual esteja configurado e as dependências de desenvolvimento instaladas antes de executar.
+O script de geração está localizado na pasta `scripts/`, mas recomendamos o uso do wrapper em `bin/`. Certifique-se de que seu ambiente virtual esteja configurado.
 
 1.  **Gerar Modelos e API a partir do DSL:**
-    Este script lê as definições de entidade em `dsl/entities/` (conforme listado em `dsl/manifest.yaml`) e gera os modelos em `src/caramello/models/` e os roteadores em `src/caramello/api/generated/`.
+    Este script lê as definições de entidade em `dsl/entities/` e gera os modelos e roteadores.
     ```bash
-    uv run python scripts/generate_code.py
+    ./bin/generate_code
     ```
 
-### Migrações de Banco de Dados (Alembic)
+### Gestão de Banco de Dados
 
-Após gerar os novos modelos, você deve criar e aplicar as migrações para atualizar o banco de dados.
+Utilize o script `bin/manage_db` para gerenciar o ciclo de vida do banco de dados. Ele encapsula o uso do Alembic e facilita operações comuns.
 
-1.  **Gerar Script de Migração:**
-    O Alembic detectará as mudanças nos modelos gerados e criará um arquivo de revisão.
+**Comandos disponíveis:**
+
+-   **Inicializar/Atualizar Banco (`init` / `upgrade`):**
+    Aplica todas as migrações pendentes.
     ```bash
-    uv run alembic revision --autogenerate -m "descricao_da_mudanca"
+    ./bin/manage_db init
     ```
 
-2.  **Aplicar Migrações:**
-    Atualize o banco de dados para a versão mais recente.
+-   **Criar Migração (`migrate`):**
+    Gera um novo arquivo de migração detectando mudanças nos modelos.
     ```bash
-    uv run alembic upgrade head
+    ./bin/manage_db migrate "descricao_da_mudanca"
+    ```
+
+-   **Resetar Banco (`reset`):**
+    **CUIDADO:** Apaga todos os dados!
+    -   Em **SQLite**: Remove o arquivo do banco e recria.
+    -   Em **PostgreSQL**: Remove todas as tabelas (downgrade base) e recria.
+    Útil para testes limpos em desenvolvimento.
+    ```bash
+    ./bin/manage_db reset
     ```
 
 ### Validação do Fluxo de Geração
 
-Para garantir que o código gerado, as migrações e os testes estejam alinhados, execute o script de validação:
+Para garantir que o código gerado, as migrações e os testes estejam alinhados:
 
 ```bash
-uv run python scripts/validate_generation.py
+./bin/validate_generation
 ```
 
 ## Estrutura do Projeto
@@ -138,6 +149,7 @@ uv run python scripts/validate_generation.py
 ### Pastas principais:
 
 -   **`alembic/`**: Scripts de migração de banco de dados (Alembic).
+-   **`bin/`**: Scripts utilitários para gestão do projeto (banco, geração de código, etc).
 -   **`docs/`**: Documentação detalhada do projeto.
 -   **`dsl/`**: Definições de objetos de domínio em YAML (DSL). Gera código e OpenAPI.
 -   **`src/caramello/`**: Pacote principal da aplicação.
