@@ -68,7 +68,17 @@ Para configurar o ambiente de desenvolvimento e instalar as dependências do pro
 
 ## Configuração
 
-O projeto utiliza variáveis de ambiente para configuração. Você pode definir essas variáveis no seu sistema ou criar um arquivo `.env` na raiz do projeto (baseado em `.env.example`).
+O projeto utiliza variáveis de ambiente para configuração.
+
+Antes de executar qualquer comando, certifique-se de configurar o ambiente:
+
+1.  **Copie o exemplo de configuração:**
+    ```bash
+    cp .env.example .env
+    ```
+2.  **Edite o arquivo `.env`** conforme necessário (opcional para desenvolvimento padrão com SQLite).
+
+Você pode definir essas variáveis no seu sistema ou criar um arquivo `.env` na raiz do projeto (baseado em `.env.example`).
 
 ### Variáveis Disponíveis
 
@@ -88,14 +98,6 @@ O projeto utiliza variáveis de ambiente para configuração. Você pode definir
 -   **Produção/QA:** Recomenda-se usar PostgreSQL. Defina `DATABASE_URL` ou as variáveis `DB_*`.
 
 ## Uso
-
-Antes de executar qualquer comando, certifique-se de configurar o ambiente:
-
-1.  **Copie o exemplo de configuração:**
-    ```bash
-    cp .env.example .env
-    ```
-2.  **Edite o arquivo `.env`** conforme necessário (opcional para desenvolvimento padrão com SQLite).
 
 O projeto Caramello Backend utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades. Um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI, que por sua vez servem de base para a geração automática de migrações de banco de dados (Alembic).
 
