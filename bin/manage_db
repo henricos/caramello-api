@@ -47,29 +47,16 @@ case "$COMMAND" in
             exit 1
         fi
 
-        # Detect database type from env or default to sqlite
-        # Simple check: if DATABASE_URL contains "postgres", assume postgres.
-        # Otherwise, check for sqlite file or default.
+        # Always assume PostgreSQL environment
         
         # Load .env if exists to check variables (simple grep, not full parsing)
         if [ -f .env ]; then
             export $(grep -v '^#' .env | xargs)
         fi
 
-        if [[ "$DATABASE_URL" == *"postgres"* ]] || [[ -n "$DB_HOST" ]]; then
-            echo "Detected PostgreSQL environment."
-            echo "Downgrading to base (dropping all tables)..."
-            uv run alembic downgrade base
-        else
-            echo "Detected SQLite environment (default)."
-            DB_FILE="database.db"
-            if [ -f "$DB_FILE" ]; then
-                echo "Removing $DB_FILE..."
-                rm "$DB_FILE"
-            else
-                echo "$DB_FILE not found, nothing to delete."
-            fi
-        fi
+        echo "Detected PostgreSQL environment."
+        echo "Downgrading to base (dropping all tables)..."
+        uv run alembic downgrade base
 
         echo "Re-initializing database..."
         uv run alembic upgrade head

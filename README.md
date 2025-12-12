@@ -68,7 +68,7 @@ Para configurar o ambiente de desenvolvimento e instalar as dependências do pro
 
 ## Configuração
 
-O projeto utiliza variáveis de ambiente para configuração.
+O projeto utiliza variáveis de ambiente para configuração e EXIGE um banco de dados PostgreSQL.
 
 Antes de executar qualquer comando, certifique-se de configurar o ambiente:
 
@@ -76,26 +76,25 @@ Antes de executar qualquer comando, certifique-se de configurar o ambiente:
     ```bash
     cp .env.example .env
     ```
-2.  **Edite o arquivo `.env`** conforme necessário (opcional para desenvolvimento padrão com SQLite).
+2.  **Edite o arquivo `.env`** com as credenciais do seu banco PostgreSQL local.
 
 Você pode definir essas variáveis no seu sistema ou criar um arquivo `.env` na raiz do projeto (baseado em `.env.example`).
 
-### Variáveis Disponíveis
+### Variáveis Disponíveis (Obrigatórias)
 
 | Variável | Descrição | Padrão |
 | :--- | :--- | :--- |
 | `ENVIRONMENT` | Define o ambiente (`development`, `qa`, `production`). | `development` |
-| `DATABASE_URL` | String de conexão completa com o banco de dados. Se definida, ignora as variáveis `DB_*`. | `sqlite:///./database.db` |
-| `DB_HOST` | Host do banco de dados (PostgreSQL). | `None` |
-| `DB_PORT` | Porta do banco de dados. | `None` |
-| `DB_USER` | Usuário do banco de dados. | `None` |
-| `DB_PASSWORD` | Senha do banco de dados. | `None` |
-| `DB_NAME` | Nome do banco de dados. | `None` |
+| `DB_HOST` | Host do banco de dados (PostgreSQL). | `localhost` |
+| `DB_PORT` | Porta do banco de dados. | `5432` |
+| `DB_USER` | Usuário do banco de dados. | `postgres` |
+| `DB_PASSWORD` | Senha do banco de dados. | `postgres` |
+| `DB_NAME` | Nome do banco de dados. | `caramello_db` |
 
 ### Ambientes
 
--   **Desenvolvimento (Default):** Utiliza SQLite (`sqlite:///./database.db`). Basta não definir nenhuma variável de banco.
--   **Produção/QA:** Recomenda-se usar PostgreSQL. Defina `DATABASE_URL` ou as variáveis `DB_*`.
+-   **Desenvolvimento:** Exige um banco PostgreSQL rodando localmente.
+-   **Produção/QA:** Utilize as variáveis para apontar para o banco do ambiente.
 
 ## Uso
 
@@ -131,8 +130,7 @@ Utilize o script `bin/manage_db` para gerenciar o ciclo de vida do banco de dado
 
 -   **Resetar Banco (`reset`):**
     **CUIDADO:** Apaga todos os dados!
-    -   Em **SQLite**: Remove o arquivo do banco e recria.
-    -   Em **PostgreSQL**: Remove todas as tabelas (downgrade base) e recria.
+    -   Remove todas as tabelas (downgrade base) e recria.
     Útil para testes limpos em desenvolvimento.
     ```bash
     ./bin/manage_db reset

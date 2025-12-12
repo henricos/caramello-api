@@ -3,13 +3,7 @@ from typing import Generator
 
 from caramello.core.config import settings
 
-sqlite_url = settings.DATABASE_URL
-
-connect_args = {}
-if sqlite_url.startswith("sqlite"):
-    connect_args["check_same_thread"] = False
-
-engine = create_engine(sqlite_url, connect_args=connect_args)
+engine = create_engine(settings.DATABASE_URL)
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
