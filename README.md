@@ -184,8 +184,7 @@ Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICEN
 ## Links Relacionados
 
 - [Caramello Backend](https://github.com/henricos/caramello-backend)
-- [Caramello Frontend Web](https://github.com/henricos/caramello-frontend-web)
-- [Caramello Mobile](https://github.com/henricos/caramello-mobile)
+- [Caramello Frontend](https://github.com/henricos/caramello-frontend)
 
 ## Contato
 
