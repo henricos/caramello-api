@@ -15,7 +15,7 @@ fields:
 
   - name: family_id
     type: int
-    foreign_key: "families.id"
+    foreign_key: "family.id"
     primary_key: true
     description: "Foreign key for the families table."
 

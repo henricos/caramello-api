@@ -11,7 +11,7 @@ class FamilyInvitation(SQLModel, table=True):
 
     id: int = Field(primary_key=True, nullable=False)  # Internal primary key (numeric).
     uuid: UUID = Field(unique=True, nullable=False, default_factory=uuid4)  # Unique public identifier (UUID).
-    family_id: int = Field(nullable=False, foreign_key='families.id')  # ID of the family to which the invitation was sent.
+    family_id: int = Field(nullable=False, foreign_key='family.id')  # ID of the family to which the invitation was sent.
     inviter_id: int = Field(nullable=False, foreign_key='users.id')  # ID of the user who sent the invitation.
     invitee_email: EmailStr = Field(nullable=False)  # Email of the invited user.
     status: str = Field(nullable=False, max_length=20)  # Status of the invitation (pending, accepted, declined).

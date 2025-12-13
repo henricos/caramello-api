@@ -20,7 +20,7 @@ fields:
 
   - name: family_id
     type: int
-    foreign_key: "families.id"
+    foreign_key: "family.id"
     nullable: false
     description: "ID of the family to which the invitation was sent."
 

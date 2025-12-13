@@ -10,7 +10,7 @@ class FamilyMember(SQLModel, table=True):
     __tablename__ = "family_members"
 
     user_id: int = Field(primary_key=True, nullable=False, foreign_key='users.id')  # Foreign key for the users table.
-    family_id: int = Field(primary_key=True, nullable=False, foreign_key='families.id')  # Foreign key for the families table.
+    family_id: int = Field(primary_key=True, nullable=False, foreign_key='family.id')  # Foreign key for the families table.
     role: str = Field(nullable=False, max_length=20)  # User's role in the family (e.g., admin, member).
     joined_at: datetime = Field(nullable=False, default_factory=datetime.utcnow)  # Timestamp of when the user joined the family.
     user: 'User' = Relationship(back_populates='families')
