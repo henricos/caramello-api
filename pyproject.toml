@@ -1,5 +1,5 @@
 [project]
-name = "caramello-backend"
+name = "caramello-api"
 version = "0.1.0"
 description = "API de backend para a aplicação Caramello"
 authors = [{ name = "Henrico", email = "henrico@example.com" }]

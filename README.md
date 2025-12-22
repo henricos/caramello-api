@@ -1,4 +1,4 @@
-# Caramello Backend
+# Caramello API
 
 Serviços backend para o sistema pessoal de organização familiar Caramello.
 
@@ -98,7 +98,7 @@ Você pode definir essas variáveis no seu sistema ou criar um arquivo `.env` na
 
 ## Uso
 
-O projeto Caramello Backend utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades. Um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI, que por sua vez servem de base para a geração automática de migrações de banco de dados (Alembic).
+O projeto Caramello API utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades. Um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI, que por sua vez servem de base para a geração automática de migrações de banco de dados (Alembic).
 
 ### Geração de Código
 
@@ -183,8 +183,8 @@ Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICEN
 
 ## Links Relacionados
 
-- [Caramello Backend](https://github.com/henricos/caramello-backend)
-- [Caramello Frontend](https://github.com/henricos/caramello-frontend)
+- [Caramello API](https://github.com/henricos/caramello-api)
+- [Caramello App](https://github.com/henricos/caramello-app)
 
 ## Contato
 

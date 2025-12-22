@@ -8,8 +8,8 @@ O Caramello é um sistema pessoal e integrado para organização familiar, proje
 
 O sistema é composto por múltiplos repositórios que trabalham em conjunto:
 
-- **`caramello-backend`**: O cérebro do sistema, responsável por toda a lógica de negócio, armazenamento de dados e APIs.
-- **`caramello-frontend-web`**: A interface principal acessada via navegador, oferecendo a experiência de usuário completa.
+- **`caramello-api`**: O cérebro do sistema, responsável por toda a lógica de negócio, armazenamento de dados e APIs.
+- **`caramello-app`**: A interface principal acessada via navegador, oferecendo a experiência de usuário completa.
 - **`caramello-mobile`**: Uma versão otimizada para dispositivos móveis, que pode ser um encapsulamento do frontend web ou uma implementação nativa completa.
 
 ## Funcionalidades Planejadas
