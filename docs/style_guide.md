@@ -1,12 +1,20 @@
 # Guia de Estilo Python
 
-## Idioma (Código-Fonte)
+## Idioma
 
-Em conformidade com as diretrizes gerais de idioma do projeto (detalhadas em `AGENTS.md`), todo o código-fonte e artefatos diretamente relacionados devem ser escritos em **Inglês (English)**. Isso garante consistência com o ecossistema de desenvolvimento, ferramentas e bibliotecas.
+O projeto adota uma estratégia híbrida de idioma para balancear a qualidade técnica global com a agilidade de comunicação local.
 
--   **Código-Fonte**: Inclui identificadores, nomes de arquivos, diretórios, variáveis, funções, classes, módulos e pacotes.
--   **Comentários e Docstrings**: Devem ser escritos em inglês para manter a coesão com o código que descrevem.
--   **Termos de Domínio Específicos**: Termos inerentes ao contexto brasileiro (ex: `CPF`, `CNPJ`, `PIX`) são permitidos, mas devem ser adaptados ao estilo `snake_case` em inglês (ex: `cpf_validator`, `handle_pix_webhook`).
+### Código-Fonte e Artefatos Técnicos: Inglês (English)
+Todo o código-fonte, configurações técnicas e documentação intrínseca ao código (comentários, *docstrings*) devem ser escritos em **Inglês**.
+-   **Motivo:** Garante consistência com o ecossistema de desenvolvimento global (bibliotecas, frameworks), facilita a integração de ferramentas de análise estática e melhora a qualidade da geração de código por IAs, que possuem maior performance com padrões em inglês.
+-   **Escopo:** Identificadores, nomes de arquivos de código, variáveis, funções, classes, módulos e pacotes.
+
+### Documentação de Produto, Processos e Commits: Português (PT-BR)
+A documentação voltada para o alinhamento do time, definição de produto (PRDs, Visão), guias de processo e mensagens de commit devem ser escritas em **Português**.
+-   **Motivo:** Maximiza o entendimento mútuo entre os membros da equipe e *stakeholders*, garantindo que nuances de negócio e regras complexas sejam compreendidas sem barreiras linguísticas.
+
+### Termos de Domínio
+Termos inerentes ao contexto brasileiro (ex: `CPF`, `CNPJ`, `PIX`) são permitidos no código, mas devem ser adaptados ao estilo `snake_case` com contexto em inglês (ex: `cpf_validator`, `handle_pix_webhook`).
 
 ## Convenções de Nomenclatura
 - **Pacotes/Módulos:** `snake_case` → `repositories`, `user.py`.
