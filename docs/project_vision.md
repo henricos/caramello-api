@@ -60,7 +60,8 @@ A colaboração é orientada por contexto: agenda, listas, tarefas, saúde, entr
 
 ## 6. Escopo Funcional (Alto Nível)
 
-O Caramello pretende oferecer, ao longo de sua evolução, funcionalidades agrupadas nos seguintes domínios:
+O Caramello pretende oferecer, ao longo de sua evolução, funcionalidades agrupadas nos domínios abaixo.
+**Nota:** Esta lista é ilustrativa e não exaustiva. As funcionalidades específicas serão priorizadas, detalhadas e refinadas gradualmente através de PRDs e validações futuras.
 
 ### 6.1 Organização e Planejamento
 
@@ -92,6 +93,13 @@ O Caramello pretende oferecer, ao longo de sua evolução, funcionalidades agrup
 * Agenda de aniversários e datas importantes
 * Base de informações relevantes da família
 
+### 6.6 Gestão Financeira Familiar
+
+* Definição de orçamento mensal e receitas
+* Integração bancária para acompanhamento de gastos (leitura de extrato/cartão)
+* Monitoramento de despesas por categoria com gráficos e alertas
+* Visão de "estouro" de orçamento previsto
+
 ---
 
 ## 7. Fora de Escopo (Não Objetivos)
@@ -99,7 +107,7 @@ O Caramello pretende oferecer, ao longo de sua evolução, funcionalidades agrup
 O Caramello **não** tem como objetivo:
 
 * Substituir sistemas oficiais de prontuário médico
-* Atuar como sistema financeiro completo ou contábil
+* Atuar como Internet Banking (realizar pagamentos ou transferências)
 * Ser uma rede social
 * Competir diretamente com serviços como Google Calendar, Spotify ou plataformas de streaming
 * Tornar-se um sistema corporativo ou profissional
