@@ -57,4 +57,6 @@ Para detalhes profundos que não cabem aqui:
 - **Idioma**: [`docs/language_rules.md`](./docs/language_rules.md)
 - **Estilo de Código**: [`docs/style_guide.md`](./docs/style_guide.md)
 - **Estrutura**: [`README.md`](./README.md#estrutura-do-projeto)
+- **Qualidade**: [`docs/quality_rules.md`](./docs/quality_rules.md)
+- **Segurança**: [`docs/security_rules.md`](./docs/security_rules.md)
 - **Regras de Commit**: [`docs/commit_rules.md`](./docs/commit_rules.md)
