@@ -50,11 +50,11 @@ Consulte [docs/language_rules.md](./docs/language_rules.md) para a política com
 ## 5. O que NÃO Fazer (Restrições)
 1.  **NUNCA edite código gerado.** Se precisar alterar um Model, edite o YAML.
 2.  **NUNCA crie arquivos `.env` sem permissão.** Use as variáveis de ambiente baseadas no `.env.example`.
-3.  **NUNCA altere a estrutura de pastas** sem consultar o `docs/project_structure.md`.
+3.  **NUNCA altere a estrutura de pastas** sem consultar a seção "Estrutura do Projeto" no `README.md`.
 
 ## 6. Documentação Detalhada
 Para detalhes profundos que não cabem aqui:
 - **Idioma**: [`docs/language_rules.md`](./docs/language_rules.md)
 - **Estilo de Código**: [`docs/style_guide.md`](./docs/style_guide.md)
-- **Estrutura**: [`docs/project_structure.md`](./docs/project_structure.md)
+- **Estrutura**: [`README.md`](./README.md#estrutura-do-projeto)
 - **Regras de Commit**: [`docs/commit_rules.md`](./docs/commit_rules.md)
