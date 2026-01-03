@@ -1,63 +1,60 @@
-# Diretrizes de Fluxo de Trabalho de IA
+# Contexto e Diretrizes para Agentes IA
 
-> **Nota para a IA:** Para obter o contexto completo sobre a visão, os objetivos e a arquitetura do sistema Caramello, consulte sempre o `README.md` e o documento detalhado em `docs/project_vision.md`.
+> **Contexto Crítico:** Este projeto (`caramello-api`) é o backend Python/FastAPI do ecossistema Caramello. Antes de começar, entenda a [Visão do Projeto](./docs/project_vision.md) e o [README](./README.md).
 
-Este projeto adota uma estratégia **DSL First** para modelagem de dados e API.
-A **DSL (YAML)** é a **fonte da verdade** para a definição de entidades e estrutura do banco de dados.
+## 1. Princípios Fundamentais (DSL First)
+Este projeto **NÃO** segue o fluxo tradicional de criar models/routers manualmente.
+- **Fonte da Verdade**: Arquivos YAML em `dsl/`.
+- **Fluxo**: Editar YAML -> Rodar `generate_code` -> Validar.
+- **Proibido**: Editar arquivos em `src/caramello/models` ou `src/caramello/api/generated` manualmente. Eles serão sobrescritos.
 
-## Fluxo de Trabalho Principal
+## 2. Stack Tecnológica
+- **Gerenciador**: `uv`
+- **Framework**: FastAPI (Async)
+- **ORM**: SQLModel / SQLAlchemy (Async)
+- **Migrações**: Alembic
+- **Banco**: PostgreSQL (Obrigatório em Dev e Prod).
 
-1. Crie ou atualize entidades em YAML dentro da pasta `dsl/`.
-2. Execute o script de geração de código: `python scripts/generate_code.py`.
-3. O script irá gerar automaticamente:
-   - **Modelos SQLModel** → `src/caramello/models/`
-   - **Roteadores FastAPI (CRUD)** → `src/caramello/api/generated/`
-4. A aplicação FastAPI (`src/caramello/main.py`) integra os roteadores gerados.
-5. A documentação **OpenAPI** é gerada automaticamente pelo FastAPI em tempo de execução (`/docs`).
-6. Execute e mantenha os testes em `tests/`, garantindo a integridade do sistema.
+## 3. Comandos Operacionais (Cheat Sheet)
+Para evitar alucinações sobre como rodar o projeto e garantir agilidade:
 
-## DSL (YAML)
-- O DSL é a **fonte da verdade** para descrever entidades de negócio (nome, campos, tipos, relações).
-- Ele define tanto a estrutura do banco de dados (tabelas, colunas) quanto a API básica (CRUD).
-- O objetivo é manter a modelagem simples e agnóstica de tecnologia.
+### 🚀 Rodar Aplicação
+```bash
+# Sobe servidor de desenvolvimento na porta 8000 com reload
+uv run uvicorn caramello.main:app --reload
+```
 
-### Convenções de Nomenclatura no DSL
-- **Nome da Entidade (`name`):** Use `PascalCase` (ex: `UserProfile`), pois irá gerar uma classe Python com o mesmo nome.
-- **Nome do Arquivo YAML:** Use `snake_case` (ex: `user_profile.yaml`).
-- **Nome da Tabela (`table_name`):** Use `snake_case` no plural (ex: `user_profiles`).
+### 🧪 Rodar Testes
+```bash
+# Executa todos os testes
+uv run pytest
+```
 
-## OpenAPI
-- A **Especificação OpenAPI** é um **artefato derivado** do código (FastAPI).
-- Ela serve como documentação para o frontend e clientes externos.
-- Não editamos o OpenAPI manualmente; ele reflete o estado atual do código.
+### 🛠️ Comandos de Manutenção (bin/)
+| ID | Comando | Descrição |
+| :--- | :--- | :--- |
+| **Gen** | `./bin/generate_code` | Gera Models e Routers a partir do DSL (`dsl/`). |
+| **DB** | `./bin/manage_db` | Gerencia o banco (init, migrate, upgrade). |
+| **Check** | `./bin/validate_generation` | Verifica consistência entre DSL, Código e DB. |
 
-## Diretrizes de Idioma
+## 4. Diretrizes de Idioma
+Consulte [docs/language_rules.md](./docs/language_rules.md) para a política completa.
 
-O projeto adota uma estratégia de dois idiomas para equilibrar a clareza para o público-alvo e a conformidade com as práticas globais de desenvolvimento de software.
+| Contexto | Idioma | Exemplo |
+| :--- | :--- | :--- |
+| **Código/DSL** | Inglês | `class UserProfile`, `def get_user`, `user_profiles.yaml` |
+| **Documentação** | Português (BR) | `README.md`, docstrings, comentários, commits |
+| **Commits** | Português (BR) | `feat: adiciona nova entidade de perfil` |
+| **PRs** | Português (BR) | Título e descrição em PT-BR |
 
-### Inglês (English)
-Utilizado para toda a base de código e artefatos diretamente ligados a ela. O objetivo é manter a consistência com as ferramentas, bibliotecas e o ecossistema de programação.
-- **Código-Fonte**: Nomes de arquivos, diretórios, variáveis, funções e classes.
-- **Comentários e Docstrings**: Devem estar no mesmo idioma do código para evitar inconsistências.
-- **Arquivos DSL (YAML)**: Todas as descrições (`description`), comentários e qualquer outro texto livre dentro dos arquivos `.yaml` na pasta `dsl/` devem estar em inglês.
+## 5. O que NÃO Fazer (Restrições)
+1.  **NUNCA edite código gerado.** Se precisar alterar um Model, edite o YAML.
+2.  **NUNCA crie arquivos `.env` sem permissão.** Use as variáveis de ambiente baseadas no `.env.example`.
+3.  **NUNCA altere a estrutura de pastas** sem consultar o `docs/project_structure.md`.
 
-### Português do Brasil (pt-BR)
-Utilizado para toda a comunicação e documentação voltada para humanos. O objetivo é garantir que o projeto seja acessível e claro para a equipe e os usuários brasileiros.
-- **Documentação Geral**: Conteúdo da pasta `docs/`, `README.md`, etc.
-- **Mensagens de Commit**: Devem seguir o padrão em português.
-- **Pull Requests**: Títulos e descrições.
-- **Textos para o Usuário Final**: Mensagens de erro, interfaces e qualquer texto exibido na aplicação.
-
-## Documentação de Referência
-Regras e diretrizes adicionais estão disponíveis na pasta [`docs/`](./docs):
-- [Guia de Estilo](./docs/style_guide.md)
-- [Estrutura do Projeto](./docs/project_structure.md)
-- [Regras de Commit](./docs/commit_rules.md)
-- [Regras de Pull Request](./docs/pr_rules.md)
-- [Regras de Segurança](./docs/security_rules.md)
-- [Regras de Qualidade](./docs/quality_rules.md)
-
-> **Importante:**
-> - O DSL é a autoridade máxima para definição de dados.
-> - O código gerado não deve ser editado manualmente (exceto se a lógica for movida para fora da geração).
-> - O OpenAPI é apenas uma visualização do código.
+## 6. Documentação Detalhada
+Para detalhes profundos que não cabem aqui:
+- **Idioma**: [`docs/language_rules.md`](./docs/language_rules.md)
+- **Estilo de Código**: [`docs/style_guide.md`](./docs/style_guide.md)
+- **Estrutura**: [`docs/project_structure.md`](./docs/project_structure.md)
+- **Regras de Commit**: [`docs/commit_rules.md`](./docs/commit_rules.md)
