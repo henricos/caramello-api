@@ -4,7 +4,7 @@
 
 ## 1. Princípios Fundamentais (DSL First)
 Este projeto **NÃO** segue o fluxo tradicional de criar models/routers manualmente.
-- **Fonte da Verdade**: Arquivos YAML em `dsl/`.
+- **Fonte da Verdade**: Arquivos YAML em `dsl/`. **OBRIGATÓRIO**: Seguir [Regras da DSL](./docs/dsl_rules.md).
 - **Fluxo**: Editar YAML -> Rodar `generate_code` -> Validar.
 - **Proibido**: Editar arquivos em `src/caramello/models` ou `src/caramello/api/generated` manualmente. Eles serão sobrescritos.
 
@@ -55,9 +55,11 @@ Consulte [docs/language_rules.md](./docs/language_rules.md) para a política com
 
 ## 6. Documentação Detalhada
 Para detalhes profundos que não cabem aqui:
-- **Idioma**: [`docs/language_rules.md`](./docs/language_rules.md)
-- **Estilo de Código**: [`docs/style_guide.md`](./docs/style_guide.md)
 - **Estrutura**: [`README.md`](./README.md#estrutura-do-projeto)
-- **Qualidade**: [`docs/quality_rules.md`](./docs/quality_rules.md)
+- **Idioma**: [`docs/language_rules.md`](./docs/language_rules.md)
+- **Regras da DSL**: [`docs/dsl_rules.md`](./docs/dsl_rules.md)
+- **Estilo de Código**: [`docs/style_guide.md`](./docs/style_guide.md)
 - **Segurança**: [`docs/security_rules.md`](./docs/security_rules.md)
+- **Qualidade**: [`docs/quality_rules.md`](./docs/quality_rules.md)
 - **Regras de Commit**: [`docs/commit_rules.md`](./docs/commit_rules.md)
+- **Regras de PR**: [`docs/pr_rules.md`](./docs/pr_rules.md)
