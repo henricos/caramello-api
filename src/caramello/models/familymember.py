@@ -4,14 +4,33 @@ from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship
 from pydantic import EmailStr
 
-
 class FamilyMember(SQLModel, table=True):
     """Association table connecting Users and Families, defining the role of each member."""
-    __tablename__ = "family_members"
+    __tablename__ = "family_member"
 
-    user_id: int = Field(primary_key=True, nullable=False, foreign_key='users.id')  # Foreign key for the users table.
-    family_id: int = Field(primary_key=True, nullable=False, foreign_key='family.id')  # Foreign key for the families table.
-    role: str = Field(nullable=False, max_length=20)  # User's role in the family (e.g., admin, member).
-    joined_at: datetime = Field(nullable=False, default_factory=datetime.utcnow)  # Timestamp of when the user joined the family.
-    user: 'User' = Relationship(back_populates='families')
-    family: 'Family' = Relationship(back_populates='members')
+    user_id: Optional['int'] = Field(primary_key=True, foreign_key='user.id', default=None)
+    family_id: Optional['int'] = Field(primary_key=True, foreign_key='family.id', default=None)
+    role: 'str' = Field(max_length=20, default='member', nullable=False)
+    joined_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
+    user: 'User' = Relationship()
+    family: 'Family' = Relationship()
+
+class FamilyMemberRead(SQLModel):
+    user_id: 'int'
+    family_id: 'int'
+    role: 'str'
+    joined_at: datetime
+
+class FamilyMemberCreate(SQLModel):
+    user_id: 'int'
+    family_id: 'int'
+    role: Optional['str'] = None
+    joined_at: datetime
+
+class FamilyMemberUpdate(SQLModel):
+    user_id: Optional['int'] = None
+    family_id: Optional['int'] = None
+    role: Optional['str'] = None
+    joined_at: Optional[datetime] = None
+

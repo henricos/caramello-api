@@ -3,13 +3,13 @@
 
 name: FamilyMember
 description: "Association table connecting Users and Families, defining the role of each member."
-table_name: family_members
+table_name: family_member
 is_link_model: true # Indicates it is an association model for a M:M relationship
 
 fields:
   - name: user_id
     type: int
-    foreign_key: "users.id"
+    foreign_key: "user.id"
     primary_key: true
     description: "Foreign key for the users table."
 
@@ -35,8 +35,8 @@ fields:
 relationships:
   - name: user
     type: "User"
-    back_populates: "families"
+    type: "User"
 
   - name: family
     type: "Family"
-    back_populates: "members"
+    type: "Family"

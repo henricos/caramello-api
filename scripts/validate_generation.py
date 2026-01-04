@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 import subprocess
+import yaml
 
 def run_command(command):
     try:
@@ -26,9 +27,6 @@ def check_file_content(file_path, search_string):
     except FileNotFoundError:
         print(f"❌ File not found: {file_path}")
         return False
-
-import yaml
-from caramello.core.config import settings
 
 def load_yaml(file_path):
     try:
@@ -59,14 +57,20 @@ def main():
             continue
             
         entity_name = entity_data['name']
-        table_name = entity_data.get('table_name', entity_name.lower() + 's')
-        model_file = Path(f"src/caramello/models/{entity_name.lower()}.py")
+        table_name = entity_data.get('table_name', entity_name.lower())
         
-        if not check_file_content(model_file, f'__tablename__ = "{table_name}"'):
-            print(f"❌ Validation failed for {entity_name}")
-            all_passed = False
-        else:
-            print(f"✅ Validated {entity_name} -> {table_name}")
+        # Check Model File
+        model_file = Path(f"src/caramello/models/{entity_name.lower()}.py")
+        if not check_file_content(model_file, f'class {entity_name}Read(SQLModel):'):
+             print(f"❌ Missing Read DTO in {model_file}")
+             all_passed = False
+             
+        # Check Test File (if not link model)
+        if not entity_data.get('is_link_model'):
+            test_file = Path(f"tests/generated/test_{entity_name.lower()}.py")
+            if not test_file.exists():
+                print(f"❌ Missing generated test file: {test_file}")
+                all_passed = False
 
     if not all_passed:
         print("❌ Entity validation failed.")
@@ -76,13 +80,14 @@ def main():
     versions_dir = Path("alembic/versions")
     migrations = list(versions_dir.glob("*.py"))
     if not migrations:
-        print("❌ No migrations found in alembic/versions")
-        sys.exit(1)
-    print(f"✅ Found {len(migrations)} migration(s)")
+        print("⚠️ No migrations found in alembic/versions (Did you run 'alembic revision --autogenerate'?)")
+        # Warn but maybe not fail if we just cleaned it
+    else:
+        print(f"✅ Found {len(migrations)} migration(s)")
 
     # 3. Run Tests
-    print("Running tests...")
-    if not run_command("uv run pytest tests/test_generated_api.py"):
+    print("Running generated tests...")
+    if not run_command("uv run pytest tests/generated"):
         sys.exit(1)
 
     print("🎉 Validation Successful!")

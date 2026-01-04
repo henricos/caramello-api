@@ -52,13 +52,13 @@ fields:
 
 relationships:
   - name: members
-    type: "List[User]"
+    type: "list[User]"
     link_model: "FamilyMember"
     back_populates: "families"
     description: "Members belonging to this family."
 
   - name: invitations
-    type: "List[FamilyInvitation]"
+    type: "list[FamilyInvitation]"
     relationship_type: "OneToMany"
     back_populates: "family"
     foreign_key: "FamilyInvitation.family_id"

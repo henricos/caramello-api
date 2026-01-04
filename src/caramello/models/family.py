@@ -3,20 +3,38 @@ from uuid import UUID, uuid4
 from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship
 from pydantic import EmailStr
-
 from caramello.models.familymember import FamilyMember
-
 
 class Family(SQLModel, table=True):
     """Represents a family group in the system."""
     __tablename__ = "family"
 
-    id: int = Field(primary_key=True, nullable=False)  # Internal primary key (numeric).
-    uuid: UUID = Field(unique=True, nullable=False, default_factory=uuid4)  # Unique public identifier (UUID).
-    name: str = Field(nullable=False, max_length=100)  # Name of the family.
-    description: Optional[str] = Field(default=None, max_length=255)  # Optional description of the family.
-    status: str = Field(nullable=False, max_length=20)  # Status of the family (e.g., active, archived).
-    created_at: datetime = Field(nullable=False, default_factory=datetime.utcnow)  # Timestamp of the record's creation.
-    updated_at: datetime = Field(nullable=False, default_factory=datetime.utcnow)  # Timestamp of the record's last update.
-    members: List['User'] = Relationship(back_populates='families', link_model=FamilyMember)
-    invitations: List['FamilyInvitation'] = Relationship(back_populates='family')
+    id: Optional['int'] = Field(primary_key=True, default=None)
+    uuid: UUID = Field(unique=True, default_factory=uuid4, nullable=False)
+    name: 'str' = Field(max_length=100, nullable=False)
+    description: Optional['str'] = Field(max_length=255, default=None)
+    status: 'str' = Field(max_length=20, default='active', nullable=False)
+    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    updated_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
+    members: list['User'] = Relationship(back_populates='families', link_model=FamilyMember)
+    invitations: list['FamilyInvitation'] = Relationship(back_populates='family')
+
+class FamilyRead(SQLModel):
+    uuid: UUID
+    name: 'str'
+    description: Optional['str']
+    status: 'str'
+    created_at: datetime
+    updated_at: datetime
+
+class FamilyCreate(SQLModel):
+    name: 'str'
+    description: Optional['str'] = None
+    status: Optional['str'] = None
+
+class FamilyUpdate(SQLModel):
+    name: Optional['str'] = None
+    description: Optional['str'] = None
+    status: Optional['str'] = None
+

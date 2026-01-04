@@ -3,24 +3,53 @@ from uuid import UUID, uuid4
 from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship
 from pydantic import EmailStr
-
 from caramello.models.familymember import FamilyMember
-
 
 class User(SQLModel, table=True):
     """Represents a system user."""
-    __tablename__ = "users"
+    __tablename__ = "user"
 
-    id: int = Field(primary_key=True, nullable=False)  # Internal primary key (numeric).
-    uuid: UUID = Field(unique=True, nullable=False, default_factory=uuid4)  # Unique public identifier (UUID).
-    full_name: str = Field(nullable=False, max_length=100)  # User's full name.
-    email: EmailStr = Field(unique=True, nullable=False)  # Unique email address, used for login.
-    phone_number: Optional[str] = Field(default=None, max_length=20)  # Phone number (E.164 format recommended).
-    hashed_password: Optional[str] = Field(default=None)  # Hashed password (null for users via OAuth).
-    google_id: Optional[str] = Field(unique=True, default=None)  # User's unique Google ID (for OAuth).
-    avatar_url: Optional[str] = Field(default=None)  # URL of the user's profile picture.
-    is_active: bool = Field(nullable=False)  # Indicates if the user is active in the system.
-    created_at: datetime = Field(nullable=False, default_factory=datetime.utcnow)  # Timestamp of the record's creation.
-    updated_at: datetime = Field(nullable=False, default_factory=datetime.utcnow)  # Timestamp of the record's last update.
-    families: List['Family'] = Relationship(back_populates='members', link_model=FamilyMember)
-    sent_invitations: List['FamilyInvitation'] = Relationship(back_populates='inviter')
+    id: Optional['int'] = Field(primary_key=True, default=None)
+    uuid: UUID = Field(unique=True, default_factory=uuid4, nullable=False)
+    full_name: 'str' = Field(max_length=100, nullable=False)
+    email: EmailStr = Field(unique=True, nullable=False)
+    phone_number: Optional['str'] = Field(max_length=20, default=None)
+    hashed_password: Optional['str'] = Field(default=None)
+    google_id: Optional['str'] = Field(unique=True, default=None)
+    avatar_url: Optional['str'] = Field(default=None)
+    is_active: 'bool' = Field(default=True, nullable=False)
+    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    updated_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
+    families: list['Family'] = Relationship(back_populates='members', link_model=FamilyMember)
+    sent_invitations: list['FamilyInvitation'] = Relationship(back_populates='inviter')
+
+class UserRead(SQLModel):
+    uuid: UUID
+    full_name: 'str'
+    email: EmailStr
+    phone_number: Optional['str']
+    google_id: Optional['str']
+    avatar_url: Optional['str']
+    is_active: 'bool'
+    created_at: datetime
+    updated_at: datetime
+
+class UserCreate(SQLModel):
+    full_name: 'str'
+    email: EmailStr
+    phone_number: Optional['str'] = None
+    password: str
+    google_id: Optional['str'] = None
+    avatar_url: Optional['str'] = None
+    is_active: Optional['bool'] = None
+
+class UserUpdate(SQLModel):
+    full_name: Optional['str'] = None
+    email: Optional[EmailStr] = None
+    phone_number: Optional['str'] = None
+    password: Optional[str] = None
+    google_id: Optional['str'] = None
+    avatar_url: Optional['str'] = None
+    is_active: Optional['bool'] = None
+

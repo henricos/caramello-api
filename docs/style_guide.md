@@ -42,9 +42,11 @@ def create_user(data: UserCreate) -> User:
 - Configure o Alembic com `target_metadata = SQLModel.metadata` em `env.py`.
 
 
-### Chaves Primárias e Identificadores Públicos
-- **Chave Primária (PK):** Todas as tabelas devem ter uma chave primária interna do tipo `integer` autoincrementada, chamada `id`. Esta chave deve ser usada para relacionamentos (joins) entre tabelas.
-- **Identificador Público:** Todas as tabelas devem ter uma coluna `uuid` do tipo `UUID`, com um valor padrão gerado e um índice `unique`. Este campo deve ser usado como o identificador público do recurso em todas as APIs externas, para evitar a exposição de IDs sequenciais.
+### Banco de Dados (SQLModel)
+- **Nomes de Tabela:** Use **SINGULAR** e `snake_case` (ex: `user`, `family_member`).
+- **Chave Primária (PK):** Todas as entidades devem ter um `id` (int, PK) e um `uuid` (UUID, unique).
+    - *Exceção:* Tabelas de associação puras (Link Models) podem ter apenas as chaves estrangeiras compondo a PK.
+- **Identificador Público:** Use sempre o `uuid` nas URLs e trocas de mensagens externas.
 ## API
 - `api/v1/routes.py`: monta os routers.
 - `api/v1/users.py`: rotas de usuário.

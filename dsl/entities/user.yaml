@@ -3,7 +3,7 @@
 
 name: User
 description: Represents a system user.
-table_name: users
+table_name: user
 
 fields:
   - name: id
@@ -73,13 +73,13 @@ fields:
 
 relationships:
   - name: families
-    type: "List[Family]"
+    type: "list[Family]"
     link_model: "FamilyMember"
     back_populates: "members"
     description: "Families to which the user belongs."
 
   - name: sent_invitations
-    type: "List[FamilyInvitation]"
+    type: "list[FamilyInvitation]"
     relationship_type: "OneToMany"
     back_populates: "inviter"
     foreign_key: "FamilyInvitation.inviter_id"

@@ -33,9 +33,10 @@ uv run pytest
 ### 🛠️ Comandos de Manutenção (bin/)
 | ID | Comando | Descrição |
 | :--- | :--- | :--- |
-| **Gen** | `./bin/generate_code` | Gera Models e Routers a partir do DSL (`dsl/`). |
+| **Gen** | `./bin/generate_code` | Gera Models, Routers e Testes a partir do DSL. |
+| **Migrate** | `alembic revision --autogenerate` | Cria migração baseada nos models gerados. |
 | **DB** | `./bin/manage_db` | Gerencia o banco (init, migrate, upgrade). |
-| **Check** | `./bin/validate_generation` | Verifica consistência entre DSL, Código e DB. |
+| **Check** | `./bin/validate_generation` | Verifica consistência e roda testes gerados. |
 
 ## 4. Diretrizes de Idioma
 Consulte [docs/language_rules.md](./docs/language_rules.md) para a política completa.
