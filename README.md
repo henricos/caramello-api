@@ -96,6 +96,22 @@ Você pode definir essas variáveis no seu sistema ou criar um arquivo `.env` na
 -   **Desenvolvimento:** Exige um banco PostgreSQL rodando localmente.
 -   **Produção/QA:** Utilize as variáveis para apontar para o banco do ambiente.
 
+3. Configure a Infraestrutura do Banco
+
+O projeto inclui um assistente para criar o usuário e o banco de dados definidos no `.env`.
+
+> **Nota:** Este passo requer credenciais de **superusuário** do Postgres (ex: `postgres`), mas não salva a senha.
+
+```bash
+./bin/setup_db
+```
+
+Este script irá:
+1. Ler as variáveis `DB_USER` e `DB_NAME` do seu `.env`.
+2. Verificar se o banco já existe.
+3. Se existir, oferecerá o modo **RESET** (Drop & Create) para começar do zero.
+4. Se não existir, criará o usuário (Role) e o Database, garantindo as permissões corretas.
+
 ## Uso
 
 O projeto Caramello API utiliza um fluxo de trabalho onde DSLs em YAML definem as entidades. Um script de geração cria automaticamente os modelos SQLModel e os roteadores FastAPI, que por sua vez servem de base para a geração automática de migrações de banco de dados (Alembic).
